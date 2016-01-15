@@ -4,6 +4,11 @@
 *.so
 *.tmp
 *.go~
+archipel_admin_api
+routers/commentsRouter_archipel_admin_api_controllers.go
+docs/docs.go
+help
+*.komodoproject
 
 # Folders
 _obj

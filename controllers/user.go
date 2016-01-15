@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	response "archipel_admin_api/controllers/response"
 	"archipel_admin_api/models"
 	"encoding/json"
 
@@ -94,16 +95,17 @@ func (u *UserController) Delete() {
 // @Description Logs user into the system
 // @Param	username		query 	string	true		"The username for login"
 // @Param	password		query 	string	true		"The password for login"
-// @Success 200 {string} login success
-// @Failure 403 user not exist
-// @router /login [get]
+// @Success 200 {object} controllers.response.UserLoginSuccessResponse
+// @Failure 403 Invalid username/password
+// @router /login [post]
 func (u *UserController) Login() {
 	username := u.GetString("username")
 	password := u.GetString("password")
 	if models.Login(username, password) {
-		u.Data["json"] = "login success"
+		data := response.UserLoginSuccessData{"abcdefgh123456789"}
+		u.Data["json"] = response.UserLoginSuccessResponse{"ok", data}
 	} else {
-		u.Data["json"] = "user not exist"
+		u.Data["json"] = response.ErrorResponse{"error", "Invalid username/password", -1}
 	}
 	u.ServeJson()
 }
